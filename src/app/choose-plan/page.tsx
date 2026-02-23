@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { supabaseBrowser } from "@/lib/supabase-browser";
 import type { User } from "@supabase/supabase-js";
@@ -142,8 +143,8 @@ export default function ChoosePlanPage() {
                         <div
                             key={plan.id}
                             className={`relative bg-zinc-900 border rounded-3xl p-7 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ${plan.popular
-                                    ? "border-brand-primary shadow-lg shadow-brand-primary/10 scale-[1.02]"
-                                    : "border-zinc-800"
+                                ? "border-brand-primary shadow-lg shadow-brand-primary/10 scale-[1.02]"
+                                : "border-zinc-800"
                                 }`}
                         >
                             {/* Popular badge */}
@@ -179,8 +180,8 @@ export default function ChoosePlanPage() {
                                 onClick={() => handleSelectPlan(plan.id)}
                                 disabled={selectedPlan === plan.id}
                                 className={`w-full h-12 rounded-xl font-bold text-sm transition-all disabled:opacity-50 ${plan.popular
-                                        ? "bg-gradient-to-r from-brand-primary to-blue-700 text-white shadow-lg hover:shadow-xl hover:-translate-y-0.5"
-                                        : "bg-zinc-800 text-white border border-zinc-700 hover:border-zinc-500 hover:bg-zinc-700"
+                                    ? "bg-gradient-to-r from-brand-primary to-blue-700 text-white shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+                                    : "bg-zinc-800 text-white border border-zinc-700 hover:border-zinc-500 hover:bg-zinc-700"
                                     }`}
                             >
                                 {selectedPlan === plan.id ? (
@@ -197,7 +198,7 @@ export default function ChoosePlanPage() {
                 {/* Footer links */}
                 <div className="text-center mt-10 space-y-2">
                     <p className="text-zinc-600 text-sm">All plans include a 7-day money-back guarantee.</p>
-                    <a href="/" className="text-zinc-500 text-sm hover:text-white transition-colors">← Back to Home</a>
+                    <Link href="/" className="text-zinc-500 text-sm hover:text-white transition-colors">← Back to Home</Link>
                 </div>
             </div>
         </div>

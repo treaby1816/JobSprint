@@ -40,10 +40,6 @@ export default function Home() {
     return () => subscription.unsubscribe();
   }, []);
 
-  const showToast = useCallback((message: string, type: "success" | "error" | "info" = "info") => {
-    setToast({ message, type });
-  }, []);
-
   const openFeature = useCallback((key: FeatureKey) => {
     if (!isAuthenticated) {
       router.push("/sign-up");

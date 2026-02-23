@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { supabaseBrowser } from "@/lib/supabase-browser";
 import type { User } from "@supabase/supabase-js";
 
@@ -66,6 +67,7 @@ const FEATURES = [
 ];
 
 export default function DashboardPage() {
+    const router = useRouter();
     const [user, setUser] = useState<User | null>(null);
     const [loadingAuth, setLoadingAuth] = useState(true);
     const [showWelcome, setShowWelcome] = useState(false);
@@ -93,12 +95,12 @@ export default function DashboardPage() {
 
     const handleSignOut = async () => {
         await supabaseBrowser.auth.signOut();
-        window.location.href = "/";
+        router.push("/");
     };
 
     const openModal = (id: string) => {
         if (!user) {
-            window.location.href = "/sign-in";
+            router.push("/sign-in");
             return;
         }
         if (id === "resume-builder") {
@@ -226,78 +228,6 @@ export default function DashboardPage() {
             <CoverLetterModal open={activeModal === "cover-letter"} onClose={() => setActiveModal(null)} />
             <InterviewPrepModal open={activeModal === "interview-prep"} onClose={() => setActiveModal(null)} />
             <TranscriptionModal open={activeModal === "transcription"} onClose={() => setActiveModal(null)} />
-        </div>
-    );
-}
-
-/* ── Inline Resume Engine Component ── */
-function ResumeEngine() {
-    const [masterProfile, setMasterProfile] = useState("");
-    const [jobDescription, setJobDescription] = useState("");
-    const [generating, setGenerating] = useState(false);
-    const [result, setResult] = useState<string | null>(null);
-    const [error, setError] = useState<string | null>(null);
-
-    const handleGenerate = async () => {
-        if (!masterProfile || !jobDescription) { setError("Both fields are required."); return; }
-        setGenerating(true); setError(null); setResult(null);
-        try {
-            const res = await fetch("/api/resume-engine", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ masterProfile, jobDescription }),
-            });
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.error ?? "Resume engine failed");
-            setResult(JSON.stringify(data.resume, null, 2));
-        } catch (err) {
-            setError(err instanceof Error ? err.message : "Something went wrong.");
-        } finally { setGenerating(false); }
-    };
-
-    return (
-        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 space-y-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                <div>
-                    <label className="text-zinc-400 text-xs font-semibold uppercase tracking-wider mb-2 block">Master Profile</label>
-                    <textarea value={masterProfile} onChange={e => setMasterProfile(e.target.value)}
-                        placeholder="Paste your full work history, skills, and experience here..."
-                        rows={10}
-                        className="w-full px-4 py-3 rounded-xl bg-zinc-800 border border-zinc-700 text-white placeholder-zinc-500 focus:outline-none focus:border-brand-accent text-sm resize-none" />
-                </div>
-                <div>
-                    <label className="text-zinc-400 text-xs font-semibold uppercase tracking-wider mb-2 block">Job Description</label>
-                    <textarea value={jobDescription} onChange={e => setJobDescription(e.target.value)}
-                        placeholder="Paste the target job description here..."
-                        rows={10}
-                        className="w-full px-4 py-3 rounded-xl bg-zinc-800 border border-zinc-700 text-white placeholder-zinc-500 focus:outline-none focus:border-brand-accent text-sm resize-none" />
-                </div>
-            </div>
-
-            {error && <p className="text-red-400 text-sm bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-2">⚠️ {error}</p>}
-
-            <button onClick={handleGenerate} disabled={generating}
-                className="w-full h-12 rounded-xl bg-gradient-to-r from-brand-accent to-brand-primary text-white font-bold hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
-                {generating ? (
-                    <span className="flex items-center justify-center gap-2">
-                        <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        Optimizing résumé…
-                    </span>
-                ) : "📄 Generate ATS Resume"}
-            </button>
-
-            {result && (
-                <div>
-                    <div className="flex items-center justify-between mb-2">
-                        <p className="text-green-400 text-sm font-semibold">✅ Resume generated!</p>
-                        <button onClick={() => navigator.clipboard.writeText(result)}
-                            className="text-xs text-zinc-400 hover:text-white transition-colors px-3 py-1 rounded-lg bg-zinc-800">
-                            📋 Copy JSON
-                        </button>
-                    </div>
-                    <pre className="w-full overflow-x-auto text-xs text-zinc-300 bg-zinc-800 border border-zinc-700 rounded-xl p-4 max-h-96">{result}</pre>
-                </div>
-            )}
         </div>
     );
 }

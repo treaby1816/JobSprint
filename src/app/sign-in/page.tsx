@@ -9,7 +9,6 @@ export default function SignInPage() {
     const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [googleMessage, setGoogleMessage] = useState<string | null>(null);
-    const [googleLoading, setGoogleLoading] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -30,8 +29,6 @@ export default function SignInPage() {
     };
 
     const handleGoogleSignIn = async () => {
-        setGoogleLoading(true);
-        setGoogleMessage(null);
         try {
             const { error } = await supabaseBrowser.auth.signInWithOAuth({
                 provider: "google",
@@ -45,7 +42,7 @@ export default function SignInPage() {
         } catch {
             setGoogleMessage("Google sign-in failed. Check your Supabase Google provider config.");
             setTimeout(() => setGoogleMessage(null), 6000);
-        } finally { setGoogleLoading(false); }
+        } finally { setLoading(false); }
     };
 
     return (

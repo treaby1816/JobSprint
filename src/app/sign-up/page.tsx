@@ -12,7 +12,6 @@ export default function SignUpPage() {
     const [loading, setLoading] = useState(false);
     const [agreed, setAgreed] = useState(false);
     const [googleMessage, setGoogleMessage] = useState<string | null>(null);
-    const [googleLoading, setGoogleLoading] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -41,8 +40,6 @@ export default function SignUpPage() {
     };
 
     const handleGoogleSignUp = async () => {
-        setGoogleLoading(true);
-        setGoogleMessage(null);
         try {
             const { error } = await supabaseBrowser.auth.signInWithOAuth({
                 provider: "google",
@@ -55,7 +52,7 @@ export default function SignUpPage() {
         } catch {
             setGoogleMessage("Google sign-up failed. Check your Supabase Google provider config.");
             setTimeout(() => setGoogleMessage(null), 6000);
-        } finally { setGoogleLoading(false); }
+        } finally { setLoading(false); }
     };
 
     const stats = [
