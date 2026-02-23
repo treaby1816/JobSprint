@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { motion } from "framer-motion";
 import JobCard from "./JobCard";
 
 const DEMO_JOBS = [
@@ -45,7 +46,13 @@ export default function JobFeed() {
         <section className="py-16 px-4 md:px-8">
             <div className="max-w-4xl mx-auto">
                 {/* Header */}
-                <div className="text-center mb-10">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.6 }}
+                    className="text-center mb-10"
+                >
                     <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 text-blue-700 text-xs font-bold uppercase tracking-wider mb-4 border border-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800">
                         <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
                         Live Feed
@@ -56,31 +63,52 @@ export default function JobFeed() {
                     <p className="text-brand-dark/50 max-w-xl mx-auto">
                         Fresh jobs detected from Greenhouse, Lever & Ashby — matched by Gemini AI in real time.
                     </p>
-                </div>
+                </motion.div>
 
-                {/* Cards */}
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                    {DEMO_JOBS.map((job) => (
-                        <JobCard
+                {/* Cards Container */}
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 overflow-hidden px-2 pb-4 pt-2 -mx-2">
+                    {DEMO_JOBS.map((job, i) => (
+                        <motion.div
                             key={job.id}
-                            title={job.title}
-                            company={job.company}
-                            matchScore={job.matchScore}
-                            detectedAgo={job.detectedAgo}
-                            applying={applying === job.id}
-                            onApply={() => handleApply(job.id, job.title)}
-                        />
+                            initial={{
+                                opacity: 0,
+                                x: i % 2 === 0 ? -50 : 50
+                            }}
+                            whileInView={{
+                                opacity: 1,
+                                x: 0
+                            }}
+                            viewport={{ once: true, margin: "-50px" }}
+                            transition={{
+                                duration: 0.8,
+                                delay: i * 0.15,
+                                ease: [0.21, 0.47, 0.32, 0.98] // Premium cubic-bezier
+                            }}
+                        >
+                            <JobCard
+                                title={job.title}
+                                company={job.company}
+                                matchScore={job.matchScore}
+                                detectedAgo={job.detectedAgo}
+                                applying={applying === job.id}
+                                onApply={() => handleApply(job.id, job.title)}
+                            />
+                        </motion.div>
                     ))}
                 </div>
 
                 {/* Toast */}
                 {toast && (
-                    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] animate-fade-in-up">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20, x: "-50%" }}
+                        animate={{ opacity: 1, y: 0, x: "-50%" }}
+                        className="fixed bottom-6 left-1/2 z-[100]"
+                    >
                         <div className="flex items-center gap-3 px-5 py-3 rounded-xl bg-blue-600 text-white text-sm font-semibold shadow-2xl">
                             <span>⚡</span>
                             <span>{toast}</span>
                         </div>
-                    </div>
+                    </motion.div>
                 )}
             </div>
         </section>
