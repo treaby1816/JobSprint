@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 export default function Hero() {
     return (
@@ -39,10 +40,19 @@ export default function Hero() {
                         { value: "70%", label: "Time saved" },
                         { value: "10k+", label: "Users" },
                     ].map((s) => (
-                        <div key={s.label} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white shadow-sm border border-brand-muted">
+                        <motion.div
+                            key={s.label}
+                            whileHover={{
+                                y: -6,
+                                scale: 1.08,
+                                boxShadow: "0 12px 30px -6px rgba(99, 102, 241, 0.25)",
+                            }}
+                            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white shadow-sm border border-brand-muted cursor-pointer hover:border-brand-primary/40"
+                        >
                             <span className="text-2xl font-extrabold text-brand-primary">{s.value}</span>
                             <span className="text-sm text-brand-dark/50">{s.label}</span>
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
 
