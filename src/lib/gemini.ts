@@ -6,17 +6,24 @@ import {
 
 /* Shared Gemini configuration for all Treabyn API routes */
 
-export const genAI = new GoogleGenerativeAI(process.env.GOOGLE_AI_API_KEY ?? "");
-
-export const SAFETY_SETTINGS = [
+const SAFETY_SETTINGS = [
     { category: HarmCategory.HARM_CATEGORY_HARASSMENT, threshold: HarmBlockThreshold.BLOCK_NONE },
     { category: HarmCategory.HARM_CATEGORY_HATE_SPEECH, threshold: HarmBlockThreshold.BLOCK_NONE },
     { category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT, threshold: HarmBlockThreshold.BLOCK_NONE },
     { category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT, threshold: HarmBlockThreshold.BLOCK_NONE },
 ];
 
+let _genAI: GoogleGenerativeAI | null = null;
+
+function getGenAI(): GoogleGenerativeAI {
+    if (!_genAI) {
+        _genAI = new GoogleGenerativeAI(process.env.GOOGLE_AI_API_KEY ?? "");
+    }
+    return _genAI;
+}
+
 export function getModel() {
-    return genAI.getGenerativeModel({
+    return getGenAI().getGenerativeModel({
         model: "gemini-2.0-flash",
         safetySettings: SAFETY_SETTINGS,
     });
