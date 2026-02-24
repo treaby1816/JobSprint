@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import JobSprintLogo from "./TreabynLogo";
 import type { FeatureKey } from "@/app/page";
 
@@ -23,7 +24,19 @@ export default function Footer({ onFeatureClick }: Props) {
         <footer className="bg-brand-dark text-white pt-20 pb-8 px-4 md:px-8">
             <div className="max-w-7xl mx-auto">
                 {/* CTA banner */}
-                <div className="relative rounded-2xl bg-gradient-to-r from-brand-primary to-brand-accent p-10 md:p-14 text-center mb-20 overflow-hidden">
+                <motion.div
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-80px" }}
+                    transition={{ duration: 0.7, ease: [0.21, 0.47, 0.32, 0.98] }}
+                    whileHover={{
+                        y: -8,
+                        scale: 1.02,
+                        boxShadow: "0 25px 60px -12px rgba(99, 102, 241, 0.4), 0 0 40px -8px rgba(168, 85, 247, 0.3)",
+                    }}
+                    className="relative rounded-2xl bg-gradient-to-r from-brand-primary to-brand-accent p-10 md:p-14 text-center mb-20 overflow-hidden cursor-pointer"
+                    style={{ transition: "box-shadow 0.3s ease" }}
+                >
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.1),transparent_60%)]" />
                     <h2 className="text-2xl md:text-4xl font-extrabold mb-4 relative z-10">
                         Ready to Automate Your Career?
@@ -37,7 +50,7 @@ export default function Footer({ onFeatureClick }: Props) {
                     >
                         Get Started Free
                     </Link>
-                </div>
+                </motion.div>
 
                 {/* Footer grid */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-16">

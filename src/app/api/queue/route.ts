@@ -6,6 +6,8 @@ import { NextResponse } from "next/server";
 import { getTodayQueue, addJobsToQueue } from "@/lib/supabase";
 import type { JobApplication } from "@/lib/supabase";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
     if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
         return NextResponse.json(

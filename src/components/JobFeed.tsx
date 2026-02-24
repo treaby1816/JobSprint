@@ -47,10 +47,10 @@ export default function JobFeed() {
             <div className="max-w-4xl mx-auto">
                 {/* Header */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.6 }}
+                    initial={{ opacity: 0, y: 40, scale: 0.95 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    viewport={{ once: false, margin: "-80px" }}
+                    transition={{ duration: 0.7, ease: [0.21, 0.47, 0.32, 0.98] }}
                     className="text-center mb-10"
                 >
                     <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 text-blue-700 text-xs font-bold uppercase tracking-wider mb-4 border border-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800">
@@ -72,17 +72,21 @@ export default function JobFeed() {
                             key={job.id}
                             initial={{
                                 opacity: 0,
-                                x: i % 2 === 0 ? -50 : 50
+                                y: 60,
+                                scale: 0.9,
+                                rotateX: 15,
                             }}
                             whileInView={{
                                 opacity: 1,
-                                x: 0
+                                y: 0,
+                                scale: 1,
+                                rotateX: 0,
                             }}
-                            viewport={{ once: true, margin: "-50px" }}
+                            viewport={{ once: false, margin: "-60px" }}
                             transition={{
                                 duration: 0.8,
                                 delay: i * 0.15,
-                                ease: [0.21, 0.47, 0.32, 0.98] // Premium cubic-bezier
+                                ease: [0.21, 0.47, 0.32, 0.98]
                             }}
                         >
                             <JobCard

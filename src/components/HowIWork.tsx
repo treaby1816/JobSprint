@@ -24,8 +24,8 @@ export default function HowIWork() {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
+                    viewport={{ once: false, margin: "-80px" }}
+                    transition={{ duration: 0.7, ease: [0.21, 0.47, 0.32, 0.98] }}
                     className="text-center mb-16"
                 >
                     <span className="inline-block px-4 py-1 rounded-full bg-white/10 text-brand-secondary text-sm font-semibold mb-4">
@@ -48,10 +48,10 @@ export default function HowIWork() {
                         {STEPS.map((s, i) => (
                             <motion.div
                                 key={s.num}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: i * 0.1 }}
+                                initial={{ opacity: 0, y: 40, scale: 0.9 }}
+                                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                                viewport={{ once: false, margin: "-60px" }}
+                                transition={{ duration: 0.6, delay: i * 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
                                 whileHover={{ y: -8 }}
                                 className="group relative flex flex-col items-center text-center bg-white/5 hover:bg-brand-primary/10 p-6 rounded-2xl border border-white/5 hover:border-brand-primary/30 transition-all duration-300 shadow-xl hover:shadow-brand-primary/20 cursor-pointer"
                             >

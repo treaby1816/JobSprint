@@ -1,6 +1,8 @@
 import { getModel, withRetry } from "@/lib/gemini";
 import { NextRequest, NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 /* ────────────────────────────────────────────────
    Treabyn Mock Exam Service — Gemini 2.0 Flash
    POST /api/mock-exam
