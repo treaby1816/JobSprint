@@ -1,4 +1,4 @@
-import { getModel, withRetry } from "@/lib/gemini";
+import { getJsonModel, withRetry } from "@/lib/gemini";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
 
         const count = Math.min(body.numberOfQuestions || 10, 50);
         const difficulty = body.difficulty || "medium";
-        const model = getModel();
+        const model = getJsonModel();
 
         const prompt = `
 You are an expert exam question generator specialising in real past examination papers.
@@ -55,23 +55,29 @@ CRITICAL RULES:
 8. Vary question types: factual recall, application, analysis, and calculation where appropriate.
 9. Questions must be factually accurate and current.
 
-Output ONLY a valid JSON array (no markdown, no code fences, no extra text):
-[
-  {
-    "id": 1,
-    "question": "...",
-    "options": ["A. ...", "B. ...", "C. ...", "D. ..."],
-    "correctAnswer": "A",
-    "explanation": "..."
-  }
-]
+Return a JSON array of objects with the following schema:
+{
+  "id": "number",
+  "question": "string",
+  "options": ["string", "string", "string", "string"],
+  "correctAnswer": "A | B | C | D",
+  "explanation": "string"
+}
 `;
 
         const questions: ExamQuestion[] = await withRetry(async () => {
             const result = await model.generateContent(prompt);
-            const text = result.response.text();
-            const cleaned = text.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
-            return JSON.parse(cleaned);
+            let parsed = JSON.parse(result.response.text());
+
+            // If the model wrapped the array in an object (e.g. { "questions": [...] })
+            if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+                if (Array.isArray(parsed.questions)) parsed = parsed.questions;
+                else if (Array.isArray(parsed.data)) parsed = parsed.data;
+                else throw new Error("AI returned JSON but no 'questions' array was found.");
+            }
+
+            if (!Array.isArray(parsed)) throw new Error("AI did not return an array of questions.");
+            return parsed;
         });
 
         return NextResponse.json(

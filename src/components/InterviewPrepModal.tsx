@@ -82,11 +82,11 @@ export default function InterviewPrepModal({ open, onClose }: Props) {
                     <div className="space-y-5">
                         <div>
                             <label className="text-xs font-semibold text-brand-dark/60 mb-1 block">Target Role *</label>
-                            <input value={role} onChange={e => setRole(e.target.value)} placeholder="e.g. Software Engineer, Product Manager" className="w-full h-12 px-4 rounded-xl border border-brand-muted bg-brand-light/30 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none" />
+                            <input value={role} onChange={e => setRole(e.target.value)} placeholder="e.g. Software Engineer, Product Manager" className="w-full h-12 px-4 rounded-xl border border-brand-muted bg-brand-light/30 text-slate-900 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none" />
                         </div>
                         <div>
                             <label className="text-xs font-semibold text-brand-dark/60 mb-1 block">Industry (optional)</label>
-                            <input value={industry} onChange={e => setIndustry(e.target.value)} placeholder="e.g. FinTech, Healthcare" className="w-full h-12 px-4 rounded-xl border border-brand-muted bg-brand-light/30 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none" />
+                            <input value={industry} onChange={e => setIndustry(e.target.value)} placeholder="e.g. FinTech, Healthcare" className="w-full h-12 px-4 rounded-xl border border-brand-muted bg-brand-light/30 text-slate-900 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none" />
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -143,7 +143,7 @@ export default function InterviewPrepModal({ open, onClose }: Props) {
 
                         <h3 className="text-lg font-bold text-brand-dark mb-5">{questions[currentQ].question}</h3>
 
-                        <textarea value={userAnswer} onChange={e => setUserAnswer(e.target.value)} placeholder="Type your answer here... (practice answering before revealing the model answer)" rows={4} className="w-full px-4 py-3 rounded-xl border border-brand-muted bg-brand-light/30 focus:border-brand-primary outline-none resize-none mb-4" />
+                        <textarea value={userAnswer} onChange={e => setUserAnswer(e.target.value)} placeholder="Type your answer here... (practice answering before revealing the model answer)" rows={4} className="w-full px-4 py-3 rounded-xl border border-brand-muted bg-brand-light/30 text-slate-900 focus:border-brand-primary outline-none resize-none mb-4" />
 
                         {!showModel ? (
                             <button onClick={revealAnswer} className="w-full h-12 rounded-full bg-brand-primary/10 text-brand-primary font-bold hover:bg-brand-primary/20 transition-all mb-3">

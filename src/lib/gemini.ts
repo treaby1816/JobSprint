@@ -30,6 +30,20 @@ export function getModel() {
 }
 
 /**
+ * Returns a model strictly configured to output JSON.
+ * This guarantees the response won't contain markdown (e.g. ```json ... ```).
+ */
+export function getJsonModel() {
+    return getGenAI().getGenerativeModel({
+        model: "gemini-2.0-flash",
+        safetySettings: SAFETY_SETTINGS,
+        generationConfig: {
+            responseMimeType: "application/json",
+        },
+    });
+}
+
+/**
  * Retry wrapper with exponential backoff for Gemini API calls.
  * Handles 429 (rate limit) and 503 (overloaded) errors gracefully.
  */

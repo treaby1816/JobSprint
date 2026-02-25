@@ -60,7 +60,8 @@ Requirements:
 
         const html = await withRetry(async () => {
             const result = await model.generateContent(prompt);
-            return result.response.text();
+            const text = result.response.text();
+            return text.replace(/```html\n?/g, "").replace(/```\n?/g, "").trim();
         });
 
         return NextResponse.json({ html }, { status: 200 });

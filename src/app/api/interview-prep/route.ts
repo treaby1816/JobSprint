@@ -1,4 +1,4 @@
-import { getModel, withRetry } from "@/lib/gemini";
+import { getJsonModel, withRetry } from "@/lib/gemini";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -15,6 +15,14 @@ interface InterviewInput {
     numberOfQuestions: number;
 }
 
+interface InterviewQuestion {
+    id: number;
+    question: string;
+    type: "technical" | "behavioral" | "situational";
+    modelAnswer: string;
+    tips: string;
+}
+
 export async function POST(req: NextRequest) {
     try {
         const body: InterviewInput = await req.json();
@@ -28,38 +36,45 @@ export async function POST(req: NextRequest) {
 
         const count = Math.min(body.numberOfQuestions || 5, 15);
         const level = body.difficulty || "mid";
-        const model = getModel();
+        const model = getJsonModel();
 
         const prompt = `
-You are an expert interview coach. Generate ${count} interview questions for the following:
+You are an expert technical interviewer and career coach.
+Generate exactly 5 interview questions and model answers for:
 
 Role: ${body.role}
-Industry: ${body.industry || "General"}
-Experience Level: ${level}
+Seniority: ${level}
 
-Requirements:
-1. Mix behavioral, technical, and situational questions.
-2. For each question, provide a model answer and coaching tip.
-3. Questions should be realistic — the kind asked at top companies.
-4. Vary difficulty within the set.
+CRITICAL RULES:
+1. Questions must be highly relevant to the role and seniority level.
+2. Include a mix of technical, behavioral, and situational questions.
+3. The "modelAnswer" should be a high-quality, structured response that a strong candidate would give.
+4. The "tips" should provide actionable advice on how the candidate should approach answering the question.
 
-Output ONLY a valid JSON array (no markdown, no code fences):
-[
-  {
-    "id": 1,
-    "question": "...",
-    "category": "behavioral|technical|situational",
-    "modelAnswer": "...",
-    "coachingTip": "..."
-  }
-]
+Return a JSON array of objects with the following schema:
+{
+  "id": "number",
+  "question": "string",
+  "type": "technical | behavioral | situational",
+  "modelAnswer": "string",
+  "tips": "string"
+}
 `;
 
-        const questions = await withRetry(async () => {
+        const questions: InterviewQuestion[] = await withRetry(async () => {
             const result = await model.generateContent(prompt);
-            const text = result.response.text();
-            const cleaned = text.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
-            return JSON.parse(cleaned);
+            let parsed = JSON.parse(result.response.text());
+
+            // If the model wrapped the array in an object (e.g. { "questions": [...] })
+            if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+                if (Array.isArray(parsed.questions)) parsed = parsed.questions;
+                else if (Array.isArray(parsed.interviewQuestions)) parsed = parsed.interviewQuestions;
+                else if (Array.isArray(parsed.data)) parsed = parsed.data;
+                else throw new Error("AI returned JSON but no 'questions' array was found.");
+            }
+
+            if (!Array.isArray(parsed)) throw new Error("AI did not return an array of questions.");
+            return parsed;
         });
 
         return NextResponse.json(

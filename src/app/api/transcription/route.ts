@@ -95,7 +95,8 @@ Return ONLY the formatted meeting minutes in markdown.`;
             return res;
         });
 
-        const output = result.response.text();
+        const rawText = result.response.text();
+        const output = rawText.replace(/```markdown\n?/g, "").replace(/```\n?/g, "").trim();
 
         return NextResponse.json({ result: output, action });
     } catch (err: unknown) {

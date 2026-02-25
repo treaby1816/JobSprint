@@ -153,7 +153,7 @@ export default function MockExamModal({ open, onClose }: Props) {
                         )}
 
                         {selectedExam === "Custom" && (
-                            <input value={customSubject} onChange={e => setCustomSubject(e.target.value)} placeholder="Enter your subject (e.g. Organic Chemistry, Data Structures)" className="w-full h-12 px-4 rounded-xl border border-brand-muted bg-brand-light/30 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none" />
+                            <input value={customSubject} onChange={e => setCustomSubject(e.target.value)} placeholder="Enter your subject (e.g. Organic Chemistry, Data Structures)" className="w-full h-12 px-4 rounded-xl border border-brand-muted bg-brand-light/30 text-slate-900 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none" />
                         )}
 
                         {/* Difficulty & Count */}
@@ -218,7 +218,7 @@ export default function MockExamModal({ open, onClose }: Props) {
                                 const isCorrect = questions[currentQ].correctAnswer === letter;
                                 const answered = answers[currentQ] !== undefined;
 
-                                let styles = "border-brand-muted hover:border-brand-primary/30 bg-white";
+                                let styles = "border-brand-muted hover:border-brand-primary/30 bg-white text-slate-900";
                                 if (answered && isCorrect) styles = "border-green-500 bg-green-50 text-green-800";
                                 else if (answered && isSelected && !isCorrect) styles = "border-red-500 bg-red-50 text-red-800";
 

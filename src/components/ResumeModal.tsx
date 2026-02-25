@@ -86,24 +86,24 @@ export default function ResumeModal({ open, onClose }: Props) {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label className="text-xs font-semibold text-brand-dark/60 mb-1 block">Full Name *</label>
-                                <input value={name} onChange={e => setName(e.target.value)} placeholder="e.g. John Doe" className="w-full h-12 px-4 rounded-xl border border-brand-muted bg-brand-light/30 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition-all" />
+                                <input value={name} onChange={e => setName(e.target.value)} placeholder="e.g. John Doe" className="w-full h-12 px-4 rounded-xl border border-brand-muted bg-brand-light/30 text-slate-900 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition-all" />
                             </div>
                             <div>
                                 <label className="text-xs font-semibold text-brand-dark/60 mb-1 block">Email Address *</label>
-                                <input value={email} onChange={e => setEmail(e.target.value)} placeholder="e.g. john@example.com" type="email" className="w-full h-12 px-4 rounded-xl border border-brand-muted bg-brand-light/30 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition-all" />
+                                <input value={email} onChange={e => setEmail(e.target.value)} placeholder="e.g. john@example.com" type="email" className="w-full h-12 px-4 rounded-xl border border-brand-muted bg-brand-light/30 text-slate-900 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition-all" />
                             </div>
                             <div>
                                 <label className="text-xs font-semibold text-brand-dark/60 mb-1 block">Phone Number</label>
-                                <input value={phone} onChange={e => setPhone(e.target.value)} placeholder="e.g. +234 801 234 5678" className="w-full h-12 px-4 rounded-xl border border-brand-muted bg-brand-light/30 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition-all" />
+                                <input value={phone} onChange={e => setPhone(e.target.value)} placeholder="e.g. +234 801 234 5678" className="w-full h-12 px-4 rounded-xl border border-brand-muted bg-brand-light/30 text-slate-900 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition-all" />
                             </div>
                             <div>
                                 <label className="text-xs font-semibold text-brand-dark/60 mb-1 block">Key Skills</label>
-                                <input value={skills} onChange={e => setSkills(e.target.value)} placeholder="e.g. React, Node.js, Project Management" className="w-full h-12 px-4 rounded-xl border border-brand-muted bg-brand-light/30 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition-all" />
+                                <input value={skills} onChange={e => setSkills(e.target.value)} placeholder="e.g. React, Node.js, Project Management" className="w-full h-12 px-4 rounded-xl border border-brand-muted bg-brand-light/30 text-slate-900 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition-all" />
                             </div>
                         </div>
                         <div>
                             <label className="text-xs font-semibold text-brand-dark/60 mb-1 block">Professional Summary (Optional)</label>
-                            <textarea value={summary} onChange={e => setSummary(e.target.value)} placeholder="Briefly describe your professional background..." rows={3} className="w-full px-4 py-3 rounded-xl border border-brand-muted bg-brand-light/30 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition-all resize-none" />
+                            <textarea value={summary} onChange={e => setSummary(e.target.value)} placeholder="Briefly describe your professional background..." rows={3} className="w-full px-4 py-3 rounded-xl border border-brand-muted bg-brand-light/30 text-slate-900 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition-all resize-none" />
                         </div>
 
                         {/* Experience */}
@@ -116,19 +116,19 @@ export default function ResumeModal({ open, onClose }: Props) {
                                 <div key={i} className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3 p-4 rounded-xl bg-brand-light/50 border border-brand-muted/50">
                                     <div>
                                         <label className="text-xs font-semibold text-brand-dark/60 mb-1 block">Job Title</label>
-                                        <input value={exp.title} onChange={e => updateExp(i, "title", e.target.value)} placeholder="e.g. Product Manager" className="w-full h-10 px-3 rounded-lg border border-brand-muted bg-white focus:border-brand-primary outline-none text-sm" />
+                                        <input value={exp.title} onChange={e => updateExp(i, "title", e.target.value)} placeholder="e.g. Product Manager" className="w-full h-10 px-3 rounded-lg border border-brand-muted bg-white text-slate-900 focus:border-brand-primary outline-none text-sm" />
                                     </div>
                                     <div>
                                         <label className="text-xs font-semibold text-brand-dark/60 mb-1 block">Company</label>
-                                        <input value={exp.company} onChange={e => updateExp(i, "company", e.target.value)} placeholder="e.g. Google" className="w-full h-10 px-3 rounded-lg border border-brand-muted bg-white focus:border-brand-primary outline-none text-sm" />
+                                        <input value={exp.company} onChange={e => updateExp(i, "company", e.target.value)} placeholder="e.g. Google" className="w-full h-10 px-3 rounded-lg border border-brand-muted bg-white text-slate-900 focus:border-brand-primary outline-none text-sm" />
                                     </div>
                                     <div>
                                         <label className="text-xs font-semibold text-brand-dark/60 mb-1 block">Duration</label>
-                                        <input value={exp.duration} onChange={e => updateExp(i, "duration", e.target.value)} placeholder="e.g. 2020 - 2023" className="w-full h-10 px-3 rounded-lg border border-brand-muted bg-white focus:border-brand-primary outline-none text-sm" />
+                                        <input value={exp.duration} onChange={e => updateExp(i, "duration", e.target.value)} placeholder="e.g. 2020 - 2023" className="w-full h-10 px-3 rounded-lg border border-brand-muted bg-white text-slate-900 focus:border-brand-primary outline-none text-sm" />
                                     </div>
                                     <div>
                                         <label className="text-xs font-semibold text-brand-dark/60 mb-1 block">Key Achievement</label>
-                                        <input value={exp.description} onChange={e => updateExp(i, "description", e.target.value)} placeholder="e.g. Increased revenue by 20%" className="w-full h-10 px-3 rounded-lg border border-brand-muted bg-white focus:border-brand-primary outline-none text-sm" />
+                                        <input value={exp.description} onChange={e => updateExp(i, "description", e.target.value)} placeholder="e.g. Increased revenue by 20%" className="w-full h-10 px-3 rounded-lg border border-brand-muted bg-white text-slate-900 focus:border-brand-primary outline-none text-sm" />
                                     </div>
                                 </div>
                             ))}
@@ -144,15 +144,15 @@ export default function ResumeModal({ open, onClose }: Props) {
                                 <div key={i} className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-3 p-4 rounded-xl bg-brand-light/50 border border-brand-muted/50">
                                     <div>
                                         <label className="text-xs font-semibold text-brand-dark/60 mb-1 block">Degree</label>
-                                        <input value={edu.degree} onChange={e => updateEdu(i, "degree", e.target.value)} placeholder="e.g. BSc Computer Science" className="w-full h-10 px-3 rounded-lg border border-brand-muted bg-white focus:border-brand-primary outline-none text-sm" />
+                                        <input value={edu.degree} onChange={e => updateEdu(i, "degree", e.target.value)} placeholder="e.g. BSc Computer Science" className="w-full h-10 px-3 rounded-lg border border-brand-muted bg-white text-slate-900 focus:border-brand-primary outline-none text-sm" />
                                     </div>
                                     <div>
                                         <label className="text-xs font-semibold text-brand-dark/60 mb-1 block">Institution</label>
-                                        <input value={edu.institution} onChange={e => updateEdu(i, "institution", e.target.value)} placeholder="e.g. University of Lagos" className="w-full h-10 px-3 rounded-lg border border-brand-muted bg-white focus:border-brand-primary outline-none text-sm" />
+                                        <input value={edu.institution} onChange={e => updateEdu(i, "institution", e.target.value)} placeholder="e.g. University of Lagos" className="w-full h-10 px-3 rounded-lg border border-brand-muted bg-white text-slate-900 focus:border-brand-primary outline-none text-sm" />
                                     </div>
                                     <div>
                                         <label className="text-xs font-semibold text-brand-dark/60 mb-1 block">Year</label>
-                                        <input value={edu.year} onChange={e => updateEdu(i, "year", e.target.value)} placeholder="e.g. 2022" className="w-full h-10 px-3 rounded-lg border border-brand-muted bg-white focus:border-brand-primary outline-none text-sm" />
+                                        <input value={edu.year} onChange={e => updateEdu(i, "year", e.target.value)} placeholder="e.g. 2022" className="w-full h-10 px-3 rounded-lg border border-brand-muted bg-white text-slate-900 focus:border-brand-primary outline-none text-sm" />
                                     </div>
                                 </div>
                             ))}

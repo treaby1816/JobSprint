@@ -72,16 +72,16 @@ export default function CoverLetterModal({ open, onClose }: Props) {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label className="text-xs font-semibold text-brand-dark/60 mb-1 block">Your Full Name *</label>
-                                <input value={candidateName} onChange={e => setCandidateName(e.target.value)} placeholder="e.g. Bami Adedeji" className="w-full h-12 px-4 rounded-xl border border-brand-muted bg-brand-light/30 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition-all" />
+                                <input value={candidateName} onChange={e => setCandidateName(e.target.value)} placeholder="e.g. Bami Adedeji" className="w-full h-12 px-4 rounded-xl border border-brand-muted bg-brand-light/30 text-slate-900 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition-all" />
                             </div>
                             <div>
                                 <label className="text-xs font-semibold text-brand-dark/60 mb-1 block">Key Skills (comma-separated)</label>
-                                <input value={skills} onChange={e => setSkills(e.target.value)} placeholder="e.g. React, Node.js, Project Management" className="w-full h-12 px-4 rounded-xl border border-brand-muted bg-brand-light/30 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition-all" />
+                                <input value={skills} onChange={e => setSkills(e.target.value)} placeholder="e.g. React, Node.js, Project Management" className="w-full h-12 px-4 rounded-xl border border-brand-muted bg-brand-light/30 text-slate-900 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition-all" />
                             </div>
                         </div>
                         <div>
                             <label className="text-xs font-semibold text-brand-dark/60 mb-1 block">Professional Summary (optional — helps tailor the letter)</label>
-                            <textarea value={candidateSummary} onChange={e => setCandidateSummary(e.target.value)} placeholder="e.g. 5 years experience in full-stack development with expertise in fintech..." rows={2} className="w-full px-4 py-3 rounded-xl border border-brand-muted bg-brand-light/30 focus:border-brand-primary outline-none resize-none" />
+                            <textarea value={candidateSummary} onChange={e => setCandidateSummary(e.target.value)} placeholder="e.g. 5 years experience in full-stack development with expertise in fintech..." rows={2} className="w-full px-4 py-3 rounded-xl border border-brand-muted bg-brand-light/30 text-slate-900 focus:border-brand-primary outline-none resize-none" />
                         </div>
 
                         <hr className="border-brand-muted" />
@@ -89,16 +89,16 @@ export default function CoverLetterModal({ open, onClose }: Props) {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label className="text-xs font-semibold text-brand-dark/60 mb-1 block">Job Title you&apos;re applying for *</label>
-                                <input value={jobTitle} onChange={e => setJobTitle(e.target.value)} placeholder="e.g. Frontend Developer, Data Analyst" className="w-full h-12 px-4 rounded-xl border border-brand-muted bg-brand-light/30 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition-all" />
+                                <input value={jobTitle} onChange={e => setJobTitle(e.target.value)} placeholder="e.g. Frontend Developer, Data Analyst" className="w-full h-12 px-4 rounded-xl border border-brand-muted bg-brand-light/30 text-slate-900 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition-all" />
                             </div>
                             <div>
                                 <label className="text-xs font-semibold text-brand-dark/60 mb-1 block">Company Name *</label>
-                                <input value={company} onChange={e => setCompany(e.target.value)} placeholder="e.g. Google, Interswitch, Paystack" className="w-full h-12 px-4 rounded-xl border border-brand-muted bg-brand-light/30 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition-all" />
+                                <input value={company} onChange={e => setCompany(e.target.value)} placeholder="e.g. Google, Interswitch, Paystack" className="w-full h-12 px-4 rounded-xl border border-brand-muted bg-brand-light/30 text-slate-900 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition-all" />
                             </div>
                         </div>
                         <div>
                             <label className="text-xs font-semibold text-brand-dark/60 mb-1 block">Job Description (paste it here — the more detail, the better your cover letter)</label>
-                            <textarea value={jobDescription} onChange={e => setJobDescription(e.target.value)} placeholder="Copy and paste the full job description from the listing..." rows={4} className="w-full px-4 py-3 rounded-xl border border-brand-muted bg-brand-light/30 focus:border-brand-primary outline-none resize-none" />
+                            <textarea value={jobDescription} onChange={e => setJobDescription(e.target.value)} placeholder="Copy and paste the full job description from the listing..." rows={4} className="w-full px-4 py-3 rounded-xl border border-brand-muted bg-brand-light/30 text-slate-900 focus:border-brand-primary outline-none resize-none" />
                         </div>
 
                         {error && (
