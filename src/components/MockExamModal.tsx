@@ -4,10 +4,12 @@ import { useState } from "react";
 interface Props { open: boolean; onClose: () => void; }
 
 interface Question {
-    id: number;
-    question: string;
+    id?: string;
+    exam_type: string;
+    topic: string;
+    question_text: string;
     options: string[];
-    correctAnswer: string;
+    correct_answer: string;
     explanation: string;
 }
 
@@ -97,7 +99,7 @@ export default function MockExamModal({ open, onClose }: Props) {
 
     const score = Object.entries(answers).filter(([i, a]) => {
         const q = questions[Number(i)];
-        return q && a.startsWith(q.correctAnswer);
+        return q && a.startsWith(q.correct_answer);
     }).length;
 
     const resetAll = () => { setStep("setup"); setQuestions([]); setAnswers({}); setCurrentQ(0); setError(null); };
@@ -208,14 +210,14 @@ export default function MockExamModal({ open, onClose }: Props) {
                         </div>
 
                         {/* Question */}
-                        <h3 className="text-lg font-bold text-brand-dark mb-5">{questions[currentQ].question}</h3>
+                        <h3 className="text-lg font-bold text-brand-dark mb-5">{questions[currentQ].question_text}</h3>
 
                         {/* Options */}
                         <div className="space-y-3 mb-5">
                             {questions[currentQ].options.map((opt) => {
                                 const letter = opt.charAt(0);
                                 const isSelected = answers[currentQ] === opt;
-                                const isCorrect = questions[currentQ].correctAnswer === letter;
+                                const isCorrect = questions[currentQ].correct_answer === letter;
                                 const answered = answers[currentQ] !== undefined;
 
                                 let styles = "border-brand-muted hover:border-brand-primary/30 bg-white text-slate-900";
