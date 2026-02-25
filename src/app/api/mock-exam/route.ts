@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
 export const dynamic = "force-dynamic";
+export const maxDuration = 60;
 
 // Initialize Supabase client
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
@@ -155,14 +156,14 @@ Return a JSON array of objects with the following EXACT schema (do not wrap in m
         );
 
     } catch (error: unknown) {
-        console.error("Mock exam generation error:", error);
+        console.error("Gemini generation failed", error);
         const message = error instanceof Error ? error.message : "Unknown error";
         const isRateLimit = message.toLowerCase().includes("429") || message.toLowerCase().includes("quota") || message.toLowerCase().includes("rate");
         return NextResponse.json(
             {
                 error: isRateLimit
                     ? "AI is busy — too many requests. Please wait 30 seconds and try again."
-                    : "Failed to generate exam questions.",
+                    : `Generation failed: ${message}`,
                 details: message,
                 retryable: isRateLimit,
             },

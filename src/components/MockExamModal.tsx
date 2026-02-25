@@ -58,15 +58,9 @@ export default function MockExamModal({ open, onClose }: Props) {
             });
             const data = await res.json();
             console.log("Mock Exam API Response:", data);
+
             if (!res.ok) {
-                // Auto-retry on rate limit (max 2 retries)
-                if (res.status === 429 && retryCount < 2) {
-                    setError(`⏳ AI is busy, retrying in 5 seconds... (attempt ${retryCount + 2}/3)`);
-                    await new Promise(r => setTimeout(r, 5000));
-                    setError(null);
-                    return handleGenerate(retryCount + 1);
-                }
-                throw new Error(data.error || "Failed to generate exam.");
+                throw new Error(data.details || data.error || `Server responded with status ${res.status}`);
             }
             if (!data.questions || data.questions.length === 0) {
                 throw new Error("No questions were generated. Please try again.");
