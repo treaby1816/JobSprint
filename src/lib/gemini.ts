@@ -47,23 +47,10 @@ export function getJsonModel() {
  * Retry wrapper with exponential backoff for Gemini API calls.
  * Handles 429 (rate limit) and 503 (overloaded) errors gracefully.
  */
-export async function withRetry<T>(
-    fn: () => Promise<T>,
-    maxRetries = 3,
-    baseDelay = 2000
-): Promise<T> {
-    let lastError: Error | null = null;
-    for (let attempt = 0; attempt <= maxRetries; attempt++) {
-        try {
-            return await fn();
-        } catch (err: unknown) {
-            lastError = err instanceof Error ? err : new Error(String(err));
-            const msg = lastError.message.toLowerCase();
-            const isRetryable = msg.includes("429") || msg.includes("503") || msg.includes("resource") || msg.includes("quota") || msg.includes("rate") || msg.includes("overloaded");
-            if (!isRetryable || attempt === maxRetries) throw lastError;
-            const delay = baseDelay * Math.pow(2, attempt) + Math.random() * 1000;
-            await new Promise(res => setTimeout(res, delay));
-        }
+export async function withRetry<T>(fn: () => Promise<T>): Promise<T> {
+    try {
+        return await fn();
+    } catch (err: unknown) {
+        throw err instanceof Error ? err : new Error(String(err));
     }
-    throw lastError;
 }

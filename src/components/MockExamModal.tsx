@@ -174,8 +174,8 @@ export default function MockExamModal({ open, onClose }: Props) {
                         {error && (
                             <div className="bg-red-50 border border-red-200 rounded-xl p-4">
                                 <p className="text-red-600 text-sm font-medium">⚠️ {error}</p>
-                                {error.includes("wait") && (
-                                    <button onClick={() => handleGenerate()} className="mt-2 text-sm font-bold text-brand-primary hover:underline">🔄 Retry now</button>
+                                {error && (
+                                    <button onClick={() => handleGenerate()} className="mt-2 text-sm font-bold text-brand-primary hover:underline">🔄 Try Again</button>
                                 )}
                             </div>
                         )}
